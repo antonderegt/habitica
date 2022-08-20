@@ -1,7 +1,7 @@
 <template>
   <div>
     <challenge-modal
-      :group-id="groupId"
+      :group-id="groupIdForChallenges"
       @createChallenge="challengeCreated"
     />
     <div
@@ -112,10 +112,13 @@ export default {
     },
   },
   watch: {
-    'group._id': {
-      async groupId () {
+    group () {
+      if (this.group.challenges === undefined) {
         this.loadChallenges();
-      },
+        return;
+      }
+
+      this.challenges = this.group.challenges;
     },
   },
   mounted () {
