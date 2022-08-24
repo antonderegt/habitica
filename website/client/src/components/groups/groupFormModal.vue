@@ -619,14 +619,14 @@ export default {
 
       const groupData = { ...this.workingGroup, categories };
 
-      let newgroup;
+      let newGroup;
       if (groupData.id) {
         await this.$store.dispatch('guilds:update', { group: groupData });
         this.$root.$emit('updatedGroup', groupData);
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
-        newgroup = await this.$store.dispatch('guilds:create', { group: groupData });
+        newGroup = await this.$store.dispatch('guilds:create', { group: groupData });
         this.$store.state.user.data.balance -= 1;
       }
 
@@ -644,8 +644,8 @@ export default {
         allowGuildInvitationsFromNonMembers: true,
       };
 
-      if (newgroup && newgroup._id) {
-        this.$router.push(`/groups/guild/${newgroup._id}`);
+      if (newGroup && newGroup._id) {
+        this.$router.push(`/groups/guild/${newGroup._id}`);
       }
       this.$root.$emit('bv::hide::modal', 'guild-form');
     },
